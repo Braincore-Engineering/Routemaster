@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple VRP App</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+
+    <style>
+      #map {
+        width: 100%;
+        height: calc(100vh - 10rem);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div x-data="mapApp()" x-init="initMap" class="bg-white p-4 rounded-lg shadow-lg">
+      <div id="map" class="w-full h-96"></div>
+      <div class="mt-4 flex space-x-2">
+        <input type="text" x-model="newDestination" placeholder="Enter a destination" class="border rounded px-2 py-1 flex-grow" @input="fetchAutocomplete" />
+        <button @click="addDestination" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Destination</button>
+        <button @click="optimizeRoute" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Optimize Route</button>
+      </div>
+      <ul class="mt-2 space-y-2">
+        <template x-for="(suggestion, index) in suggestions">
+          <li x-text="suggestion" x-on:click="selectSuggestion(suggestion)" class="cursor-pointer transition duration-300 hover:bg-gray-200 px-2 py-1 rounded"></li>
+        </template>
+      </ul>
+      <ul class="mt-2 space-y-2">
+        <template x-for="(destination, index) in destinations">
+          <li>
+            <span x-text="destination"></span>
+            <button @click="removeDestination(index)" class="text-red-500 hover:text-red-700 ml-2">Remove</button>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <!-- Scripts at the bottom for optimized loading -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
