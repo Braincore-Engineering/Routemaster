@@ -25,18 +25,6 @@
           margin-top: 0.5rem;
         }
       }
-
-      @media (max-width: 640px) {
-        .suggestion-list {
-          display: block;
-        }
-      }
-
-      @media (min-width: 641px) {
-        .suggestion-list {
-          display: none;
-        }
-      }
     </style>
   </head>
   <body class="bg-gray-100">
@@ -47,6 +35,12 @@
         <button @click="addDestination" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Destination</button>
         <button @click="optimizeRoute" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Optimize Route</button>
       </div>
+
+      <ul class="mt-2 space-y-2 suggestion-list">
+        <template x-for="(suggestion, index) in suggestions">
+          <li x-text="suggestion" x-on:click="selectSuggestion(suggestion)" class="cursor-pointer transition duration-300 hover:bg-gray-200 px-2 py-1 rounded"></li>
+        </template>
+      </ul>
 
       <ul class="mt-2 space-y-2 suggestion-list">
         <template x-for="(suggestion, index) in suggestions">
